@@ -12,7 +12,7 @@ jobs:
 
     steps:
       - name: Initialize Manual Actions
-        run: echo "Manual actions should be initialized here"
+        run: echo "Manual actions should be initialized here..."
         
       - name: Trigger Child Workflow
         uses: actions/checkout@v2
