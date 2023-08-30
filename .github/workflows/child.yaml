@@ -1,0 +1,42 @@
+name: Child Workflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  install-tools:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Java, Maven, Node.js
+        run: |
+          # Install Java, Maven, Node.js here
+
+      # Perform other steps as needed
+
+    # Publish output as artifact
+    outputs:
+      artifact-name: ${{ steps.set-up.outputs.artifact-name }}
+
+  report:
+    needs: install-tools
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Download artifact from child workflow
+        uses: actions/download-artifact@v2
+        with:
+          name: ${{ needs.install-tools.outputs.artifact-name }}
+
+      # Process the artifact or use environment variables as needed
+      # Create a summary report
+      - name: Generate Report
+        run: |
+          # Process output from the child workflow
+          echo "Child workflow output summary:"
+          cat artifact-name/output.txt  # Modify the path accordingly
